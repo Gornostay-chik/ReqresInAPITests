@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="Failed suite [All Test Suite]" guice-stage="DEVELOPMENT">
-  <test thread-count="5" name="C:/JavaExamples/ReqredAPITests(failed)">
-    <classes>
-      <class name="ColorTests.SingleColorTest">
-        <methods>
-          <include name="checkColorAttributeCOLOR"/>
-          <include name="setupParams"/>
-          <include name="checkColorAttributePANTONEVALUE"/>
-          <include name="checkStatus200OK"/>
-          <include name="checkColorAttributesID"/>
-          <include name="checkColorAttributeYEAR"/>
-          <include name="checkColorAttributeNAME"/>
-        </methods>
-      </class> <!-- ColorTests.SingleColorTest -->
-    </classes>
-  </test> <!-- C:/JavaExamples/ReqredAPITests(failed) -->
+    <test thread-count="5" name="C:/JavaExamples/ReqredAPITests(failed)">
+        <classes>
+            <class name="ColorTests.SingleColorTest">
+                <methods>
+                    <include name="checkColorAttributeCOLOR"/>
+                    <include name="setupParams"/>
+                    <include name="checkColorAttributePANTONEVALUE"/>
+                    <include name="checkStatus200OK"/>
+                    <include name="checkColorAttributesID"/>
+                    <include name="checkColorAttributeYEAR"/>
+                    <include name="checkColorAttributeNAME"/>
+                </methods>
+            </class> <!-- ColorTests.SingleColorTest -->
+        </classes>
+    </test> <!-- C:/JavaExamples/ReqredAPITests(failed) -->
 </suite> <!-- Failed suite [All Test Suite] -->

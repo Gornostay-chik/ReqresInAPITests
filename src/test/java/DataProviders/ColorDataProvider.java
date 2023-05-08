@@ -1,38 +1,36 @@
 package DataProviders;
 
 import DTO.ColorDTO;
-import DTO.ColorDTOBuilder;
 import org.testng.annotations.DataProvider;
 
 public class ColorDataProvider {
 
     @DataProvider(name = "ColorDataProviderArray")
-    public Object[][] getColorDataProvider(){
+    public Object[][] getColorDataProvider() {
 
-        ColorDTO cerulean = new ColorDTOBuilder()
-                .setId(1)
-                .setName("cerulean")
-                .setYear(2000)
-                .setColor("#98B2D1")
-                .setPantoneValue("15-4020")
+        ColorDTO cerulean = ColorDTO.builder()
+                .id(1)
+                .name("cerulean")
+                .year(2000)
+                .color("#98B2D1")
+                .pantoneValue("15-4020")
                 .build();
-        ColorDTO fuchsiaRose = new ColorDTOBuilder()
-                .setId(2)
-                .setName("fuchsia rose")
-                .setYear(2001)
-                .setColor("#C74375")
-                .setPantoneValue("17-2031")
+        ColorDTO fuchsiaRose = ColorDTO.builder()
+                .id(2)
+                .name("fuchsia rose")
+                .year(2001)
+                .color("#C74375")
+                .pantoneValue("17-2031")
                 .build();
-        ColorDTO trueRed = new ColorDTOBuilder()
-                .setId(3)
-                .setName("true red")
-                .setYear(2002)
-                .setColor("#BF1932")
-                .setPantoneValue("19-1664")
+        ColorDTO trueRed = ColorDTO.builder()
+                .id(3)
+                .name("true red")
+                .year(2002)
+                .color("#BF1932")
+                .pantoneValue("19-1664")
                 .build();
 
-
-        Object[][] colorExpected={{cerulean}, {fuchsiaRose}, {trueRed}};
+        Object[][] colorExpected = {{cerulean}, {fuchsiaRose}, {trueRed}};
 
         return colorExpected;
     }

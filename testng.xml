@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="All Test Suite">
-    <test verbose="2" preserve-order="true" name="C:/JavaExamples/ReqredAPITests">
+    <test verbose="2" preserve-order="true"
+          name="C:/JavaExamples/ReqresInAPITests/src/test/java/ColorTests/ColorListTests.java">
         <classes>
-            <class name="ColorTests.SingleColorTest">
+            <class name="ColorTests.ColorListTests">
                 <methods>
-                    <include name="checkStatus200OK"/>
-                    <include name="checkColorAttributesID"/>
-                    <include name="checkColorAttributeNAME"/>
-                    <include name="checkColorAttributeYEAR"/>
-                    <include name="checkColorAttributeCOLOR"/>
-                    <include name="checkColorAttributePANTONEVALUE"/>
+                    <include name="checkListColorPageAttribute"/>
+                    <include name="checkDATASize"/>
+                    <include name="checkMinimumColorYear"/>
+                    <include name="checkMaximumColorYear"/>
                 </methods>
             </class>
         </classes>

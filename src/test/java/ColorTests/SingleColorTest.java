@@ -1,8 +1,6 @@
 package ColorTests;
 
 import DTO.ColorDTO;
-import DTO.ColorDTOBuilder;
-import DTO.ColorDTOLombok;
 import DataProviders.ColorDataProvider;
 import io.restassured.module.jsv.JsonSchemaValidator;
 import org.hamcrest.Matchers;
@@ -16,31 +14,12 @@ import static io.restassured.RestAssured.given;
 
 public class SingleColorTest {
 
-    ColorDTO colorExpected;
-    ColorDTO colorJSON;
-
-    //c lombok
-    ColorDTOLombok colorExpectedLombok, colorJSONLombok;
-
+    ColorDTO colorExpected, colorJSON;
 
     @BeforeClass
-    public void setupParams(){
-        colorExpected = new ColorDTOBuilder()
-                .setId(2)
-                .setName("fuchsia rose")
-                .setYear(2001)
-                .setColor("#C74375")
-                .setPantoneValue("17-2031")
-                .build();
+    public void setupParams() {
 
-        colorJSON = given()
-                .spec(requestSpecification())
-                .get("/api/unknown/2")
-                .then()
-                //.log().all()
-                .extract().body().jsonPath().getObject("data", ColorDTO.class);
-
-        colorExpectedLombok = ColorDTOLombok.builder()
+        colorExpected = ColorDTO.builder()
                 .id(2)
                 .name("fuchsia rose")
                 .year(2001)
@@ -49,18 +28,18 @@ public class SingleColorTest {
                 .build();
 
 
-        colorJSONLombok = given()
+        colorJSON = given()
                 .spec(requestSpecification())
                 .get("/api/unknown/2")
                 .then()
                 //.log().all()
-                .extract().body().jsonPath().getObject("data", ColorDTOLombok.class);
+                .extract().body().jsonPath().getObject("data", ColorDTO.class);
 
-        int i=0;
+        int i = 0;
     }
 
     @Test(priority = 1)
-    public void checkStatus200OK(){
+    public void checkStatus200OK() {
         given()
                 .when()
                 .get("https://reqres.in/api/unknown/2")
@@ -69,31 +48,32 @@ public class SingleColorTest {
     }
 
     @Test(priority = 2)
-    public void checkColorAttributesID(){
-        Assert.assertEquals(colorExpectedLombok.getId(), colorJSONLombok.getId());
+    public void checkColorAttributesID() {
+        Assert.assertEquals(colorExpected.getId(), colorJSON.getId());
     }
 
     @Test(priority = 3)
-    public void checkColorAttributeNAME(){
+    public void checkColorAttributeNAME() {
         Assert.assertEquals(colorExpected.getName(), colorJSON.getName());
     }
 
     @Test(priority = 4)
-    public void checkColorAttributeYEAR(){
+    public void checkColorAttributeYEAR() {
         Assert.assertEquals(colorExpected.getYear(), colorJSON.getYear());
     }
 
     @Test(priority = 5)
-    public void checkColorAttributeCOLOR(){
+    public void checkColorAttributeCOLOR() {
         Assert.assertEquals(colorExpected.getColor(), colorJSON.getColor());
     }
+
     @Test(priority = 6)
-    public void checkColorAttributePANTONEVALUE(){
+    public void checkColorAttributePANTONEVALUE() {
         Assert.assertEquals(colorExpected.getPantoneValue(), colorJSON.getPantoneValue());
     }
 
     @Test(priority = 7)
-    public void checkColorAllAttributes(){ //проверка всех атрибутов DTO сразу
+    public void checkColorAllAttributes() { //проверка всех атрибутов DTO сразу
         given()
                 .spec(requestSpecification())
                 .get("/api/unknown/2")
@@ -107,7 +87,7 @@ public class SingleColorTest {
     }
 
     @Test
-    public void checkJSONSchema(){ //проверка схемы JSON, нужно добавить в pom <json-schema-validator>!
+    public void checkJSONSchema() { //проверка схемы JSON, нужно добавить в pom <json-schema-validator>!
         given()
                 .spec(requestSpecification())
                 .get("/api/unknown/2")
@@ -117,12 +97,12 @@ public class SingleColorTest {
     }
 
     @Test(dataProvider = "ColorDataProviderArray", dataProviderClass = ColorDataProvider.class)
-    public void checkColorsByID(ColorDTO colorExpected){
+    public void checkColorsByID(ColorDTO colorExpected) {
         /*проверка разных цветов по выбранным ID (например, по классам эквивалентности)
         с использованием DataProvider*/
         ColorDTO colorJson = given()
                 .spec(requestSpecification())
-                .get("/api/unknown/"+colorExpected.getId())
+                .get("/api/unknown/" + colorExpected.getId())
                 .then()
                 .extract()
                 .jsonPath()
