@@ -22,7 +22,7 @@ public class ColorListTests {
     ColorListInfoDTO listInfoJSON;
     Response resp;
     List<ColorDTO> colorListJSON;
-    //перенсти потом в отдельный модуль типа PageObject!
+    
     int minYearExpected = 2000;
     int maxYearExpected = 2005;
 

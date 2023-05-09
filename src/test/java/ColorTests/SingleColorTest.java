@@ -2,6 +2,7 @@ package ColorTests;
 
 import DTO.ColorDTO;
 import DataProviders.ColorDataProvider;
+import io.restassured.RestAssured;
 import io.restassured.module.jsv.JsonSchemaValidator;
 import org.hamcrest.Matchers;
 import org.testng.Assert;
@@ -97,9 +98,9 @@ public class SingleColorTest {
     }
 
     @Test(dataProvider = "ColorDataProviderArray", dataProviderClass = ColorDataProvider.class)
-    public void checkColorsByID(ColorDTO colorExpected) {
+    public void checkColorsByIDfromArray(ColorDTO colorExpected) {
         /*проверка разных цветов по выбранным ID (например, по классам эквивалентности)
-        с использованием DataProvider*/
+        с использованием DataProvider из Object[][]*/
         ColorDTO colorJson = given()
                 .spec(requestSpecification())
                 .get("/api/unknown/" + colorExpected.getId())
@@ -111,5 +112,36 @@ public class SingleColorTest {
         Assert.assertEquals(colorJson, colorExpected);
     }
 
+    @Test(dataProvider = "ColorDataProviderIterator", dataProviderClass = ColorDataProvider.class)
+    public void checkColorsByIDfromIterator(ColorDTO colorExpected){
+        /*проверка разных цветов по выбранным ID (например, по классам эквивалентности)
+        с использованием DataProvider из Iterator<Object[]>*/
+        ColorDTO colorJson = given()
+                .spec(requestSpecification())
+                .get("/api/unknown/" + colorExpected.getId())
+                .then()
+                .extract()
+                .jsonPath()
+                .getObject("data", ColorDTO.class);
 
+        Assert.assertEquals(colorJson, colorExpected);
+    }
+
+    @Test(dataProvider = "ColorDataProviderFile", dataProviderClass = ColorDataProvider.class)
+    public void checkColorsByIDfromFile(String id,
+                                        String name,
+                                        String year,
+                                        String color,
+                                        String pantoneValue){
+        given()
+                .spec(requestSpecification())
+                .get("/api/unknown/" + id)
+                .then()
+                .assertThat()
+                .body("data.id", Matchers.is(Integer.parseInt(id)))
+                .body("data.name", Matchers.is(name))
+                .body("data.year", Matchers.is(Integer.parseInt(year)))
+                .body("data.color", Matchers.is(color))
+                .body("data.pantone_value", Matchers.is(pantoneValue));
+    }
 }
