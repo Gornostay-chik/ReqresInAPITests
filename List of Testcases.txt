@@ -1,3 +1,6 @@
+0. ExamplesTests
+0.1 Проверка сортировки List с пустыми элементами методом stream().sorted().toList()
+
 1. ColorListTests
 
 1.1 Проверка атрибутов страницы: page, per_page, total, total_pages - checkListColorPageAttribute()

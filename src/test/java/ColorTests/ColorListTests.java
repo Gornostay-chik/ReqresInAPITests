@@ -11,6 +11,7 @@ import org.testng.annotations.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static Specifications.Specifications.requestSpecification;
 import static io.restassured.RestAssured.given;
@@ -22,7 +23,7 @@ public class ColorListTests {
     ColorListInfoDTO listInfoJSON;
     Response resp;
     List<ColorDTO> colorListJSON;
-    
+
     int minYearExpected = 2000;
     int maxYearExpected = 2005;
 
@@ -63,6 +64,13 @@ public class ColorListTests {
     public void checkDATASize() {
         //1.2 Проверка, что массив [data] содержит количество элементов {color} = per_page
         Assert.assertEquals(colorListJSON.size(), listInfoJSON.getPerPage());
+    }
+
+    @Test
+    public void checkDATASort(){
+        //1.3 Проверка, что массив [data] отсортирован
+        List<ColorDTO> colorListJSONsorted = colorListJSON.stream().sorted().toList();
+        Assert.assertEquals(colorListJSON,colorListJSONsorted);
     }
 
     @Test
