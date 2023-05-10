@@ -3,6 +3,7 @@ package ColorTests;
 import DTO.ColorDTO;
 import DTO.ColorListInfoDTO;
 import DTO.ColorListInfoDTOBuilder;
+import DTO.ColorListInfoDTOIgnore;
 import io.restassured.internal.common.assertion.Assertion;
 import io.restassured.response.Response;
 import org.testng.Assert;
@@ -20,6 +21,7 @@ import static io.restassured.RestAssured.requestSpecification;
 public class ColorListTests {
 
     ColorListInfoDTO listInfoExpected;
+    ColorListInfoDTOIgnore listInfoIgnoreExpected;
     ColorListInfoDTO listInfoJSON;
     Response resp;
     List<ColorDTO> colorListJSON;
@@ -34,6 +36,13 @@ public class ColorListTests {
                 .setPerPage(6)
                 .setTotal(12)
                 .setTotalPages(2)
+                .build();
+
+        listInfoIgnoreExpected = new ColorListInfoDTOIgnore().builder()
+                .page(1)
+                .perPage(6)
+                .total(12)
+                .totalPages(2)
                 .build();
 
         resp = given()
@@ -58,6 +67,19 @@ public class ColorListTests {
         Assert.assertEquals(listInfoExpected.getPerPage(), listInfoJSON.getPerPage(), "\"per_page\" not equal!");
         Assert.assertEquals(listInfoExpected.getTotal(), listInfoJSON.getTotal());
         Assert.assertEquals(listInfoExpected.getTotalPages(), listInfoJSON.getTotalPages());
+    }
+
+    @Test
+    public void checkListColorAttributeIgnore(){
+        //1.1.1 Проверка п.1.1, но с использованием аннотации Jackson @JsonIgnoreProperties(ignoreUnknown = true)
+        ColorListInfoDTOIgnore colorListIgnoreJSON = given()
+                .spec(requestSpecification())
+                .get("api/unknown")
+                .then()
+                .extract()
+                .as(ColorListInfoDTOIgnore.class);
+
+        Assert.assertEquals(colorListIgnoreJSON, listInfoIgnoreExpected);
     }
 
     @Test

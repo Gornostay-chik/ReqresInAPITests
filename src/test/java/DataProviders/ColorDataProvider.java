@@ -9,6 +9,7 @@ import org.testng.annotations.Test;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -77,7 +78,36 @@ public class ColorDataProvider {
         reader.close();
         System.out.println("size = " + colorFile.size());
         return colorFile.iterator();
+    }
 
+    @DataProvider(name = "ColorDataProviderDB")
+    public Iterator<Object[]> getColorDataProviderFromDBOracle() throws SQLException {
+        String DB_URL = "jdbc:oracle:thin:@localhost:1521/XEPDB1";
+        String DB_user = "input login";
+        String DB_password = "input password";
+
+        Connection conn = DriverManager.getConnection(DB_URL, DB_user, DB_password);
+        System.out.println("Соединение есть? - " + (conn.isValid(20000)?"да":"нет"));
+
+        Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+        String query = "SELECT * FROM ermin.colors";
+
+        ResultSet rset = stmt.executeQuery(query);
+
+        List<Object[]> colorDB = new ArrayList<>();
+
+        //извлекаем данные из ResultSet
+        while(rset.next()){
+            colorDB.add(new Object[]{ColorDTO.builder()
+                    .id(rset.getInt(1))
+                    .name(rset.getString(2))
+                    .year(rset.getInt(3))
+                    .color(rset.getString(4))
+                    .pantoneValue(rset.getString( 5))
+                    .build()});
+        }
+        rset.close();
+        return colorDB.iterator();
     }
 }
 

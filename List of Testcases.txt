@@ -4,7 +4,22 @@
 1. ColorListTests
 
 1.1 Проверка атрибутов страницы: page, per_page, total, total_pages - checkListColorPageAttribute()
+1.1.1 Проверка п.1.1, но с использованием аннотации Jackson @JsonIgnoreProperties(ignoreUnknown = true)
 1.2 Проверка, что массив [data] содержит количество элементов {color} = per_page - checkDATASize()
 1.3 Проверка, что массив [data] отсортирован
 1.4 Проверка минимального элемента массива (Comparable по year) - checkMinimumColorYear()
 1.5 Проверка максимального элемента массива (Comparable по year) - checkMaximumColorYear()
+
+2. SingleColorTest
+2.1 Статус ответа (можно сделать через спецификацию ответа)
+2.2 Проверка id (просто для тренировки)
+2.3 Проверка Name (просто для тренировки)
+2.4 Проверка year (просто для тренировки)
+2.5 Проверка color (просто для тренировки)
+2.6 Проверка pantoneValue (просто для тренировки)
+2.7 Проверка всех атрибутов DTO сразу
+2.8 Проверка схемы JSON
+2.9 Проверка разных цветов по выбранным ID (например, по классам эквивалентности) с использованием DataProvider из Object[][]
+2.10 Проверка разных цветов по выбранным ID с использованием DataProvider из Iterator<Object[]>
+2.11 Проверка разных цветов по выбранным ID - DataProvider из файла
+2.12 Проверка разных цветов по выбранным ID - DataProvider из БД Oracle
