@@ -1,10 +1,7 @@
-package DataProviders;
+package dataProviders;
 
-import DTO.ColorDTO;
-import lombok.Data;
-import org.testng.Assert;
+import dto.color.ColorDTO;
 import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -52,10 +49,9 @@ public class ColorDataProvider {
     @DataProvider(name = "ColorDataProviderIterator")
     public Iterator<Object[]> getColorDataProviderFromIterator() {
         setUpColors();
-        List<Object[]> colorList = new ArrayList<>();
-        colorList.add(new Object[]{cerulean});
-        colorList.add(new Object[]{fuchsiaRose});
-        colorList.add(new Object[]{trueRed});
+        var colorList = List.of(new Object[]{cerulean},
+                new Object[]{fuchsiaRose},
+                new Object[]{trueRed});
         return colorList.iterator();
     }
 

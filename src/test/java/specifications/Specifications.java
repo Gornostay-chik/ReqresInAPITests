@@ -1,4 +1,4 @@
-package Specifications;
+package specifications;
 
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
@@ -7,6 +7,7 @@ import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
 import org.apache.http.HttpStatus;
 
+import static io.restassured.http.ContentType.ANY;
 import static io.restassured.http.ContentType.JSON;
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.hamcrest.Matchers.lessThanOrEqualTo;
@@ -17,7 +18,7 @@ public class Specifications {
                 .setBaseUri("https://reqres.in/")//---> Cтартовая URL
                 .setRelaxedHTTPSValidation()//---> Отключение проверки сертификата
                 .setContentType(JSON)//---> Установка Content Type
-                .setAccept(JSON)//---> Установка Accept
+                .setAccept(ANY)//---> Установка Accept
                 .build();
     }
 

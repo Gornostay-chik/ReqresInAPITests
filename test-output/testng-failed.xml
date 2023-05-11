@@ -3,7 +3,7 @@
 <suite name="Failed suite [All Test Suite]" guice-stage="DEVELOPMENT">
     <test thread-count="5" name="C:/JavaExamples/ReqredAPITests(failed)">
         <classes>
-            <class name="ColorTests.SingleColorTest">
+            <class name="colorTests.SingleColorTest">
                 <methods>
                     <include name="checkColorAttributeCOLOR"/>
                     <include name="setupParams"/>

@@ -1,16 +1,15 @@
-package ColorTests;
+package colorTests;
 
-import DTO.ColorDTO;
-import DataProviders.ColorDataProvider;
-import io.restassured.RestAssured;
+import dto.color.ColorDTO;
+import dataProviders.ColorDataProvider;
 import io.restassured.module.jsv.JsonSchemaValidator;
-import org.hamcrest.Matchers;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 //import io.restassured.module.jsv.JsonSchemaValidator;
 
-import static Specifications.Specifications.requestSpecification;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static specifications.Specifications.requestSpecification;
 import static io.restassured.RestAssured.given;
 
 public class SingleColorTest {
@@ -87,11 +86,11 @@ public class SingleColorTest {
                 .get("/api/unknown/2")
                 .then()
                 .assertThat()
-                .body("data.id", Matchers.is(colorExpected.getId()))
-                .body("data.name", Matchers.is(colorExpected.getName()))
-                .body("data.year", Matchers.is(colorExpected.getYear()))
-                .body("data.color", Matchers.is(colorExpected.getColor()))
-                .body("data.pantone_value", Matchers.is(colorExpected.getPantoneValue()));
+                .body("data.id", equalTo(colorExpected.getId()),
+                "data.name", equalTo(colorExpected.getName()),
+                "data.year", equalTo(colorExpected.getYear()),
+                "data.color", equalTo(colorExpected.getColor()),
+                "data.pantone_value", equalTo(colorExpected.getPantoneValue()));
     }
 
     @Test
@@ -148,11 +147,11 @@ public class SingleColorTest {
                 .get("/api/unknown/" + id)
                 .then()
                 .assertThat()
-                .body("data.id", Matchers.is(Integer.parseInt(id)))
-                .body("data.name", Matchers.is(name))
-                .body("data.year", Matchers.is(Integer.parseInt(year)))
-                .body("data.color", Matchers.is(color))
-                .body("data.pantone_value", Matchers.is(pantoneValue));
+                .body("data.id", equalTo(Integer.parseInt(id)),
+                "data.name", equalTo(name),
+                "data.year", equalTo(Integer.parseInt(year)),
+                "data.color", equalTo(color),
+                "data.pantone_value", equalTo(pantoneValue));
     }
 
     @Test(dataProvider = "ColorDataProviderDB", dataProviderClass = ColorDataProvider.class, enabled = false)
@@ -169,10 +168,10 @@ public class SingleColorTest {
                 .get("/api/unknown/" + colorExpected.getId())
                 .then()
                 .assertThat()
-                .body("data.id", Matchers.is(colorExpected.getId()))
-                .body("data.name", Matchers.is(colorExpected.getName()))
-                .body("data.year", Matchers.is(colorExpected.getYear()))
-                .body("data.color", Matchers.is(colorExpected.getColor()))
-                .body("data.pantone_value", Matchers.is(colorExpected.getPantoneValue()));
+                .body("data.id", equalTo(colorExpected.getId()),
+                "data.name", equalTo(colorExpected.getName()),
+                "data.year", equalTo(colorExpected.getYear()),
+                "data.color", equalTo(colorExpected.getColor()),
+                "data.pantone_value", equalTo(colorExpected.getPantoneValue()));
     }
 }

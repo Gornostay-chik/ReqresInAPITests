@@ -1,7 +1,7 @@
 0. ExamplesTests
 0.1 Проверка сортировки List с пустыми элементами методом stream().sorted().toList()
 
-1. ColorListTests
+1. ColorListTests (GET запрос)
 
 1.1 Проверка атрибутов страницы: page, per_page, total, total_pages - checkListColorPageAttribute()
 1.1.1 Проверка п.1.1, но с использованием аннотации Jackson @JsonIgnoreProperties(ignoreUnknown = true)
@@ -10,7 +10,7 @@
 1.4 Проверка минимального элемента массива (Comparable по year) - checkMinimumColorYear()
 1.5 Проверка максимального элемента массива (Comparable по year) - checkMaximumColorYear()
 
-2. SingleColorTest
+2. SingleColorTest (GET запрос)
 2.1 Статус ответа (можно сделать через спецификацию ответа)
 2.2 Проверка id (просто для тренировки)
 2.3 Проверка Name (просто для тренировки)
@@ -23,3 +23,6 @@
 2.10 Проверка разных цветов по выбранным ID с использованием DataProvider из Iterator<Object[]>
 2.11 Проверка разных цветов по выбранным ID - DataProvider из файла
 2.12 Проверка разных цветов по выбранным ID - DataProvider из БД Oracle
+
+3. CreateUser (POST запрос)
+3.1 Проверка, что атрибуты созданного User совпадают с исходными

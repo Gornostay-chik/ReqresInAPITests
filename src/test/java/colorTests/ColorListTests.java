@@ -1,22 +1,17 @@
-package ColorTests;
+package colorTests;
 
-import DTO.ColorDTO;
-import DTO.ColorListInfoDTO;
-import DTO.ColorListInfoDTOBuilder;
-import DTO.ColorListInfoDTOIgnore;
-import io.restassured.internal.common.assertion.Assertion;
+import dto.color.ColorDTO;
+import dto.color.ColorListInfoDTO;
+import dto.color.ColorListInfoDTOIgnore;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
-import static Specifications.Specifications.requestSpecification;
+import static specifications.Specifications.requestSpecification;
 import static io.restassured.RestAssured.given;
-import static io.restassured.RestAssured.requestSpecification;
 
 public class ColorListTests {
 
@@ -31,11 +26,11 @@ public class ColorListTests {
 
     @BeforeClass
     public void setupParams() {
-        listInfoExpected = new ColorListInfoDTOBuilder()
-                .setPage(1)
-                .setPerPage(6)
-                .setTotal(12)
-                .setTotalPages(2)
+        listInfoExpected = new ColorListInfoDTO().builder()
+                .page(1)
+                .perPage(6)
+                .total(12)
+                .totalPages(2)
                 .build();
 
         listInfoIgnoreExpected = new ColorListInfoDTOIgnore().builder()
@@ -49,11 +44,11 @@ public class ColorListTests {
                 .spec(requestSpecification())
                 .get("api/unknown");
 
-        listInfoJSON = new ColorListInfoDTOBuilder()
-                .setPage(resp.path("page"))
-                .setPerPage(resp.path("per_page"))
-                .setTotal(resp.path("total"))
-                .setTotalPages(resp.path("total_pages"))
+        listInfoJSON = new ColorListInfoDTO().builder()
+                .page(resp.path("page"))
+                .perPage(resp.path("per_page"))
+                .total(resp.path("total"))
+                .totalPages(resp.path("total_pages"))
                 .build();
 
         colorListJSON = resp.then().extract().body().jsonPath().getList("data", ColorDTO.class);

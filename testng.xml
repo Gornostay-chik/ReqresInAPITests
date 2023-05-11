@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="All Test Suite" parallel = "methods" thread-count="4">
+<suite name="All Test Suite" parallel = "gitmethods" thread-count="4">
     <test verbose="2" preserve-order="true"
           name="C:/JavaExamples/ReqresInAPITests/src/test/java/ColorTests/ColorListTests.java">
         <classes>
-            <class name="ColorTests.ColorListTests">
+            <class name="colorTests.ColorListTests">
                 <methods>
                     <include name="checkListColorPageAttribute"/>
                     <include name="checkDATASize"/>

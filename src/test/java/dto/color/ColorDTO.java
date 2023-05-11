@@ -1,4 +1,4 @@
-package DTO;
+package dto.color;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -11,9 +11,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class ColorDTO implements Comparable<ColorDTO> {
+    @JsonProperty("color")
     private String color;
+    @JsonProperty("year")
     private int year;
+    @JsonProperty("name")
     private String name;
+    @JsonProperty("id")
     private int id;
     @JsonProperty("pantone_value")
     private String pantoneValue;
