@@ -38,9 +38,9 @@ public class SingleColorTest {
         int i = 0;
     }
 
-    @Test(priority = 1)
+    @Test(description = "2.1 Статус ответа (можно сделать через спецификацию ответа)",
+            priority = 1)
     public void checkStatus200OK() {
-        //2.1 Статус ответа (можно сделать через спецификацию ответа)
         given()
                 .when()
                 .get("https://reqres.in/api/unknown/2")
@@ -48,39 +48,39 @@ public class SingleColorTest {
                 .statusCode(200);
     }
 
-    @Test(priority = 2)
-    //2.2 Проверка id (просто для тренировки)
+    @Test(description = "2.2 Проверка id (просто для тренировки)",
+            priority = 2)
     public void checkColorAttributesID() {
         Assert.assertEquals(colorExpected.getId(), colorJSON.getId());
     }
 
-    @Test(priority = 3)
-    //2.3 Проверка Name (просто для тренировки)
+    @Test(description = "2.3 Проверка Name (просто для тренировки)",
+            priority = 3)
     public void checkColorAttributeNAME() {
         Assert.assertEquals(colorExpected.getName(), colorJSON.getName());
     }
 
-    @Test(priority = 4)
-    //2.4 Проверка year (просто для тренировки)
+    @Test(description = "2.4 Проверка year (просто для тренировки)",
+            priority = 4)
     public void checkColorAttributeYEAR() {
         Assert.assertEquals(colorExpected.getYear(), colorJSON.getYear());
     }
 
-    @Test(priority = 5)
-    //2.5 Проверка color (просто для тренировки)
+    @Test(description = "2.5 Проверка color (просто для тренировки)",
+            priority = 5)
     public void checkColorAttributeCOLOR() {
         Assert.assertEquals(colorExpected.getColor(), colorJSON.getColor());
     }
 
-    @Test(priority = 6)
-    //2.6 Проверка pantoneValue (просто для тренировки)
+    @Test(description = "2.6 Проверка pantoneValue (просто для тренировки)",
+            priority = 6)
     public void checkColorAttributePANTONEVALUE() {
         Assert.assertEquals(colorExpected.getPantoneValue(), colorJSON.getPantoneValue());
     }
 
-    @Test(priority = 7)
+    @Test(description = "2.7 Проверка всех атрибутов DTO сразу",
+            priority = 7)
     public void checkColorAllAttributes() {
-        //2.7 Проверка всех атрибутов DTO сразу
         given()
                 .spec(requestSpecification())
                 .get("/api/unknown/2")
@@ -93,9 +93,8 @@ public class SingleColorTest {
                 "data.pantone_value", equalTo(colorExpected.getPantoneValue()));
     }
 
-    @Test
+    @Test(description = "2.8 Проверка схемы JSON, нужно добавить в pom <json-schema-validator>!")
     public void checkJSONSchema() {
-        //2.8 Проверка схемы JSON, нужно добавить в pom <json-schema-validator>!
         given()
                 .spec(requestSpecification())
                 .get("/api/unknown/2")
@@ -104,10 +103,11 @@ public class SingleColorTest {
                 .body(JsonSchemaValidator.matchesJsonSchemaInClasspath("GETSingleColorSchema.json"));
     }
 
-    @Test(dataProvider = "ColorDataProviderArray", dataProviderClass = ColorDataProvider.class)
+    @Test(description = "2.9 Проверка разных цветов по выбранным ID (например, по классам эквивалентности) " +
+            "с использованием DataProvider из Object[][]",
+            dataProvider = "ColorDataProviderArray",
+            dataProviderClass = ColorDataProvider.class)
     public void checkColorsByIDfromArray(ColorDTO colorExpected) {
-        /*2.9 Проверка разных цветов по выбранным ID (например, по классам эквивалентности)
-        с использованием DataProvider из Object[][]*/
         ColorDTO colorJson = given()
                 .spec(requestSpecification())
                 .get("/api/unknown/" + colorExpected.getId())
@@ -119,10 +119,11 @@ public class SingleColorTest {
         Assert.assertEquals(colorJson, colorExpected);
     }
 
-    @Test(dataProvider = "ColorDataProviderIterator", dataProviderClass = ColorDataProvider.class)
+    @Test(description = "2.10 Проверка разных цветов по выбранным ID (например, по классам эквивалентности) " +
+            "с использованием DataProvider из Iterator<Object[]>",
+            dataProvider = "ColorDataProviderIterator",
+            dataProviderClass = ColorDataProvider.class)
     public void checkColorsByIDfromIterator(ColorDTO colorExpected){
-        /*2.10 Проверка разных цветов по выбранным ID (например, по классам эквивалентности)
-        с использованием DataProvider из Iterator<Object[]>*/
         ColorDTO colorJson = given()
                 .spec(requestSpecification())
                 .get("/api/unknown/" + colorExpected.getId())
@@ -134,9 +135,12 @@ public class SingleColorTest {
         Assert.assertEquals(colorJson, colorExpected);
     }
 
-    @Test(dataProvider = "ColorDataProviderFile", dataProviderClass = ColorDataProvider.class, enabled = false)
-    //2.11 Проверка разных цветов по выбранным ID - DataProvider из файла
-    //тест выключен, так как может не быть файла - доделать чтобы читать из resources
+    @Test(description = "2.11 Проверка разных цветов по выбранным ID - DataProvider из файла " +
+            "(тест выключен, так как может не быть файла - доделать чтобы читать из resources)",
+            dataProvider = "ColorDataProviderFile",
+            dataProviderClass = ColorDataProvider.class,
+            enabled = true)
+    //
     public void checkColorsByIDfromFile(String id,
                                         String name,
                                         String year,
@@ -154,9 +158,12 @@ public class SingleColorTest {
                 "data.pantone_value", equalTo(pantoneValue));
     }
 
-    @Test(dataProvider = "ColorDataProviderDB", dataProviderClass = ColorDataProvider.class, enabled = false)
-    //2.12 Проверка разных цветов по выбранным ID - DataProvider из БД Oracle
-    /*тест выключен, так как БД может быть выключена
+    @Test(description = "2.12 Проверка разных цветов по выбранным ID - DataProvider из БД Oracle " +
+            "(тест выключен, так как БД может быть выключена)",
+            dataProvider = "ColorDataProviderDB",
+            dataProviderClass = ColorDataProvider.class,
+            enabled = true)
+    /*
     примечание: включать 2 службы:
     - OracleServiceXE
     - OracleOraDB21Home1TNSListener

@@ -55,18 +55,16 @@ public class ColorListTests {
 
     }
 
-    @Test
+    @Test(description = "1.1 Проверка атрибутов страницы: page, per_page, total, total_pages")
     public void checkListColorPageAttribute() {
-        //1.1 Проверка атрибутов страницы: page, per_page, total, total_pages
         Assert.assertEquals(listInfoExpected.getPage(), listInfoJSON.getPage(), "\"page\" not equal!");
         Assert.assertEquals(listInfoExpected.getPerPage(), listInfoJSON.getPerPage(), "\"per_page\" not equal!");
         Assert.assertEquals(listInfoExpected.getTotal(), listInfoJSON.getTotal());
         Assert.assertEquals(listInfoExpected.getTotalPages(), listInfoJSON.getTotalPages());
     }
 
-    @Test
+    @Test(description = "1.1.1 Проверка п.1.1, но с использованием аннотации Jackson @JsonIgnoreProperties(ignoreUnknown = true)")
     public void checkListColorAttributeIgnore(){
-        //1.1.1 Проверка п.1.1, но с использованием аннотации Jackson @JsonIgnoreProperties(ignoreUnknown = true)
         ColorListInfoDTOIgnore colorListIgnoreJSON = given()
                 .spec(requestSpecification())
                 .get("api/unknown")
@@ -77,29 +75,25 @@ public class ColorListTests {
         Assert.assertEquals(colorListIgnoreJSON, listInfoIgnoreExpected);
     }
 
-    @Test
+    @Test(description = "1.2 Проверка, что массив [data] содержит количество элементов {color} = per_page")
     public void checkDATASize() {
-        //1.2 Проверка, что массив [data] содержит количество элементов {color} = per_page
         Assert.assertEquals(colorListJSON.size(), listInfoJSON.getPerPage());
     }
 
-    @Test
+    @Test(description = "1.3 Проверка, что массив [data] отсортирован")
     public void checkDATASort(){
-        //1.3 Проверка, что массив [data] отсортирован
         List<ColorDTO> colorListJSONsorted = colorListJSON.stream().sorted().toList();
         Assert.assertEquals(colorListJSON,colorListJSONsorted);
     }
 
-    @Test
+    @Test(description = "1.4 Проверка минимального элемента массива (Comparable по year)")
     public void checkMinimumColorYear() {
-        //1.4 Проверка минимального элемента массива (Comparable по year)
         int minYearJSON = colorListJSON.stream().min((c1, c2) -> c1.compareTo(c2)).get().getYear();
         Assert.assertEquals(minYearJSON, minYearExpected);
     }
 
-    @Test
+    @Test(description = "1.5 Проверка максимального элемента массива (Comparable по year)")
     public void checkMaximumColorYear() {
-        //1.5 Проверка максимального элемента массива (Comparable по year)
         int minYearJSON = colorListJSON.stream().max((c1, c2) -> c1.compareTo(c2)).get().getYear();
         Assert.assertEquals(minYearJSON, maxYearExpected);
     }

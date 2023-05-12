@@ -4,6 +4,7 @@ import dto.color.ColorDTO;
 import org.testng.annotations.DataProvider;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.*;
@@ -15,7 +16,7 @@ public class ColorDataProvider {
 
     public ColorDTO cerulean, fuchsiaRose, trueRed;
 
-    public void setUpColors() {
+    public void setupParams() {
         cerulean = ColorDTO.builder()
                 .id(1)
                 .name("cerulean")
@@ -41,14 +42,14 @@ public class ColorDataProvider {
 
     @DataProvider(name = "ColorDataProviderArray")
     public Object[][] getColorDataProviderFromArray() {
-        setUpColors();
+        setupParams();
         Object[][] colorExpected = {{cerulean}, {fuchsiaRose}, {trueRed}};
         return colorExpected;
     }
 
     @DataProvider(name = "ColorDataProviderIterator")
     public Iterator<Object[]> getColorDataProviderFromIterator() {
-        setUpColors();
+        setupParams();
         var colorList = List.of(new Object[]{cerulean},
                 new Object[]{fuchsiaRose},
                 new Object[]{trueRed});
@@ -57,8 +58,11 @@ public class ColorDataProvider {
 
     @DataProvider(name = "ColorDataProviderFile")
     public Iterator<Object[]> getColorDataProviderFromFile() throws IOException {
+
+        File fileColor = new File(getClass().getClassLoader().getResource("Colors.csv").getPath());
+
         BufferedReader reader = new BufferedReader(
-                    new FileReader("C:\\JavaExamples\\ReqresInAPITests\\src\\test\\resources\\Colors.csv"));
+                    new FileReader(fileColor));
         String line;
         List<Object[]> colorFile = new ArrayList<>();
             //читаем первую строку с названиями полей
@@ -83,6 +87,7 @@ public class ColorDataProvider {
         String DB_password = "input password";
 
         Connection conn = DriverManager.getConnection(DB_URL, DB_user, DB_password);
+
         System.out.println("Соединение есть? - " + (conn.isValid(20000)?"да":"нет"));
 
         Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
