@@ -59,7 +59,7 @@ public class ColorDataProvider {
     @DataProvider(name = "ColorDataProviderFile")
     public Iterator<Object[]> getColorDataProviderFromFile() throws IOException {
 
-        File fileColor = new File(getClass().getClassLoader().getResource("Colors.csv").getPath());
+        File fileColor = new File(getClass().getResource("/Colors.csv").getPath());
 
         BufferedReader reader = new BufferedReader(
                     new FileReader(fileColor));
@@ -83,8 +83,8 @@ public class ColorDataProvider {
     @DataProvider(name = "ColorDataProviderDB")
     public Iterator<Object[]> getColorDataProviderFromDBOracle() throws SQLException {
         String DB_URL = "jdbc:oracle:thin:@localhost:1521/XEPDB1";
-        String DB_user = "input login";
-        String DB_password = "input password";
+        String DB_user = "ermin";
+        String DB_password = "123456";
 
         Connection conn = DriverManager.getConnection(DB_URL, DB_user, DB_password);
 

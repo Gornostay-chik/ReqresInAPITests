@@ -3,6 +3,8 @@ package colorTests;
 import dto.color.ColorDTO;
 import dto.color.ColorListInfoDTO;
 import dto.color.ColorListInfoDTOIgnore;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
@@ -56,6 +58,7 @@ public class ColorListTests {
     }
 
     @Test(description = "1.1 Проверка атрибутов страницы: page, per_page, total, total_pages")
+    @Severity(SeverityLevel.NORMAL)
     public void checkListColorPageAttribute() {
         Assert.assertEquals(listInfoExpected.getPage(), listInfoJSON.getPage(), "\"page\" not equal!");
         Assert.assertEquals(listInfoExpected.getPerPage(), listInfoJSON.getPerPage(), "\"per_page\" not equal!");
