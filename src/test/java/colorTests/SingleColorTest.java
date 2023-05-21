@@ -110,7 +110,7 @@ public class SingleColorTest {
         Assert.assertEquals(colorJson, colorExpected);
     }
 
-    @Test(description = "2.10 Проверка разных цветов по выбранным ID (например, по классам эквивалентности) " +
+    @Test(description = "2.10 Проверка разных цветов по выбранным ID (например, по классам эквивалентности)" +
             "с использованием DataProvider из Iterator<Object[]>",
             dataProvider = "ColorDataProviderIterator",
             dataProviderClass = ColorDataProvider.class)
@@ -126,7 +126,7 @@ public class SingleColorTest {
         Assert.assertEquals(colorJson, colorExpected);
     }
 
-    @Test(description = "2.11 Проверка разных цветов по выбранным ID - DataProvider из файла ",
+    @Test(description = "2.11 Проверка разных цветов по выбранным ID - DataProvider из файла",
             dataProvider = "ColorDataProviderFile",
             dataProviderClass = ColorDataProvider.class,
             enabled = true)
@@ -148,7 +148,7 @@ public class SingleColorTest {
                 "data.pantone_value", equalTo(pantoneValue));
     }
 
-    @Test(description = "2.12 Проверка разных цветов по выбранным ID - DataProvider из БД Oracle ",
+    @Test(description = "2.12 Проверка разных цветов по выбранным ID - DataProvider из БД Oracle",
             dataProvider = "ColorDataProviderDB",
             dataProviderClass = ColorDataProvider.class,
             enabled = true)

@@ -17,6 +17,7 @@ GET: Single <resource> NOT FOUND /api/unknown/23 - информация о цв�
 1. TestNG
 2. RestAssured
 3. Lombok
+4. typeSafe
 
 # Структура проекта
 
@@ -27,6 +28,7 @@ GET: Single <resource> NOT FOUND /api/unknown/23 - информация о цв�
 2.2 Iterator<Object[]>
    - чтение из файла
    - чтение из БД (Oracle XE)
+2.3 ConfigProvider - чтение из файла application.conf с помощью typeSafe
 
 3. Пакет specification - спецификации для request/response
 
