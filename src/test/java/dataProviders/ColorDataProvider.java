@@ -12,47 +12,21 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import static dataProviders.ConfigProvider.*;
+
 public class ColorDataProvider {
-
-    public ColorDTO cerulean, fuchsiaRose, trueRed;
-
-    public void setupParams() {
-        cerulean = ColorDTO.builder()
-                .id(1)
-                .name("cerulean")
-                .year(2000)
-                .color("#98B2D1")
-                .pantoneValue("15-4020")
-                .build();
-        fuchsiaRose = ColorDTO.builder()
-                .id(2)
-                .name("fuchsia rose")
-                .year(2001)
-                .color("#C74375")
-                .pantoneValue("17-2031")
-                .build();
-        trueRed = ColorDTO.builder()
-                .id(3)
-                .name("true red")
-                .year(2002)
-                .color("#BF1932")
-                .pantoneValue("19-1664")
-                .build();
-    }
 
     @DataProvider(name = "ColorDataProviderArray")
     public Object[][] getColorDataProviderFromArray() {
-        setupParams();
-        Object[][] colorExpected = {{cerulean}, {fuchsiaRose}, {trueRed}};
+        Object[][] colorExpected = {{CERULEAN}, {FUCHSIA_ROSE}, {TRUE_RED}};
         return colorExpected;
     }
 
     @DataProvider(name = "ColorDataProviderIterator")
     public Iterator<Object[]> getColorDataProviderFromIterator() {
-        setupParams();
-        var colorList = List.of(new Object[]{cerulean},
-                new Object[]{fuchsiaRose},
-                new Object[]{trueRed});
+        var colorList = List.of(new Object[]{CERULEAN},
+                new Object[]{FUCHSIA_ROSE},
+                new Object[]{TRUE_RED});
         return colorList.iterator();
     }
 
@@ -81,12 +55,13 @@ public class ColorDataProvider {
     }
 
     @DataProvider(name = "ColorDataProviderDB")
-    public Iterator<Object[]> getColorDataProviderFromDBOracle() throws SQLException {
-        String DB_URL = "jdbc:oracle:thin:@localhost:1521/XEPDB1";
-        String DB_user = "ermin";
-        String DB_password = "123456";
+    public Iterator<Object[]> getColorDataProviderFromDBOracle() throws SQLException, IOException {
+        System.getProperties().load(ClassLoader.getSystemResourceAsStream("application.properties"));
+        String dbURL = System.getProperty("DB_URL");
+        String dbName = System.getProperty("DB_name");
+        String dbPassword = System.getProperty("DB_password");
 
-        Connection conn = DriverManager.getConnection(DB_URL, DB_user, DB_password);
+        Connection conn = DriverManager.getConnection(dbURL, dbName, dbPassword);
 
         System.out.println("Соединение есть? - " + (conn.isValid(20000)?"да":"нет"));
 

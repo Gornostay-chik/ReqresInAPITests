@@ -8,25 +8,17 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 //import io.restassured.module.jsv.JsonSchemaValidator;
 
+import java.io.IOException;
+
+import static dataProviders.ConfigProvider.FUCHSIA_ROSE;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static specifications.Specifications.requestSpecification;
 import static io.restassured.RestAssured.given;
 
 public class SingleColorTest {
-
-    ColorDTO colorExpected, colorJSON;
-
+    ColorDTO         colorJSON;
     @BeforeClass
-    public void setupParams() {
-
-        colorExpected = ColorDTO.builder()
-                .id(2)
-                .name("fuchsia rose")
-                .year(2001)
-                .color("#C74375")
-                .pantoneValue("17-2031")
-                .build();
-
+    public void setupParams() throws IOException {
 
         colorJSON = given()
                 .spec(requestSpecification())
@@ -35,7 +27,6 @@ public class SingleColorTest {
                 //.log().all()
                 .extract().body().jsonPath().getObject("data", ColorDTO.class);
 
-        int i = 0;
     }
 
     @Test(description = "2.1 Статус ответа (можно сделать через спецификацию ответа)",
@@ -51,31 +42,31 @@ public class SingleColorTest {
     @Test(description = "2.2 Проверка id (просто для тренировки)",
             priority = 2)
     public void checkColorAttributesID() {
-        Assert.assertEquals(colorExpected.getId(), colorJSON.getId());
+        Assert.assertEquals(FUCHSIA_ROSE.getId(), colorJSON.getId());
     }
 
     @Test(description = "2.3 Проверка Name (просто для тренировки)",
             priority = 3)
     public void checkColorAttributeNAME() {
-        Assert.assertEquals(colorExpected.getName(), colorJSON.getName());
+        Assert.assertEquals(FUCHSIA_ROSE.getName(), colorJSON.getName());
     }
 
     @Test(description = "2.4 Проверка year (просто для тренировки)",
             priority = 4)
     public void checkColorAttributeYEAR() {
-        Assert.assertEquals(colorExpected.getYear(), colorJSON.getYear());
+        Assert.assertEquals(FUCHSIA_ROSE.getYear(), colorJSON.getYear());
     }
 
     @Test(description = "2.5 Проверка color (просто для тренировки)",
             priority = 5)
     public void checkColorAttributeCOLOR() {
-        Assert.assertEquals(colorExpected.getColor(), colorJSON.getColor());
+        Assert.assertEquals(FUCHSIA_ROSE.getColor(), colorJSON.getColor());
     }
 
     @Test(description = "2.6 Проверка pantoneValue (просто для тренировки)",
             priority = 6)
     public void checkColorAttributePANTONEVALUE() {
-        Assert.assertEquals(colorExpected.getPantoneValue(), colorJSON.getPantoneValue());
+        Assert.assertEquals(FUCHSIA_ROSE.getPantoneValue(), colorJSON.getPantoneValue());
     }
 
     @Test(description = "2.7 Проверка всех атрибутов DTO сразу",
@@ -86,11 +77,11 @@ public class SingleColorTest {
                 .get("/api/unknown/2")
                 .then()
                 .assertThat()
-                .body("data.id", equalTo(colorExpected.getId()),
-                "data.name", equalTo(colorExpected.getName()),
-                "data.year", equalTo(colorExpected.getYear()),
-                "data.color", equalTo(colorExpected.getColor()),
-                "data.pantone_value", equalTo(colorExpected.getPantoneValue()));
+                .body("data.id", equalTo(FUCHSIA_ROSE.getId()),
+                "data.name", equalTo(FUCHSIA_ROSE.getName()),
+                "data.year", equalTo(FUCHSIA_ROSE.getYear()),
+                "data.color", equalTo(FUCHSIA_ROSE.getColor()),
+                "data.pantone_value", equalTo(FUCHSIA_ROSE.getPantoneValue()));
     }
 
     @Test(description = "2.8 Проверка схемы JSON, нужно добавить в pom <json-schema-validator>!")
@@ -135,8 +126,7 @@ public class SingleColorTest {
         Assert.assertEquals(colorJson, colorExpected);
     }
 
-    @Test(description = "2.11 Проверка разных цветов по выбранным ID - DataProvider из файла " +
-            "(тест выключен, так как может не быть файла - доделать чтобы читать из resources)",
+    @Test(description = "2.11 Проверка разных цветов по выбранным ID - DataProvider из файла ",
             dataProvider = "ColorDataProviderFile",
             dataProviderClass = ColorDataProvider.class,
             enabled = true)
@@ -158,8 +148,7 @@ public class SingleColorTest {
                 "data.pantone_value", equalTo(pantoneValue));
     }
 
-    @Test(description = "2.12 Проверка разных цветов по выбранным ID - DataProvider из БД Oracle " +
-            "(тест выключен, так как БД может быть выключена)",
+    @Test(description = "2.12 Проверка разных цветов по выбранным ID - DataProvider из БД Oracle ",
             dataProvider = "ColorDataProviderDB",
             dataProviderClass = ColorDataProvider.class,
             enabled = true)
@@ -167,7 +156,6 @@ public class SingleColorTest {
     примечание: включать 2 службы:
     - OracleServiceXE
     - OracleOraDB21Home1TNSListener
-    + вписать логин/пароль для БД в dataPorvider!
     */
     public void checkColorsByIDfromDB(ColorDTO colorExpected){
         given()
