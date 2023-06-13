@@ -1,4 +1,4 @@
-package dataProviders;
+package providers;
 
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;

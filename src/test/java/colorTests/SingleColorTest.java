@@ -1,7 +1,8 @@
 package colorTests;
 
 import dto.color.ColorDTO;
-import dataProviders.ColorDataProvider;
+import io.qameta.allure.Owner;
+import providers.ColorDataProvider;
 import io.restassured.module.jsv.JsonSchemaValidator;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
@@ -10,11 +11,12 @@ import org.testng.annotations.Test;
 
 import java.io.IOException;
 
-import static dataProviders.ConfigProvider.FUCHSIA_ROSE;
+import static providers.ConfigProvider.FUCHSIA_ROSE;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static specifications.Specifications.requestSpecification;
 import static io.restassured.RestAssured.given;
 
+@Owner("i.potryasai")
 public class SingleColorTest {
     ColorDTO         colorJSON;
     @BeforeClass
@@ -28,6 +30,12 @@ public class SingleColorTest {
                 .extract().body().jsonPath().getObject("data", ColorDTO.class);
 
     }
+
+    @Test
+    public void getFUCHSIA_ROSE(){
+        System.out.println(FUCHSIA_ROSE.getId());
+    }
+
 
     @Test(description = "2.1 Статус ответа (можно сделать через спецификацию ответа)",
             priority = 1)
@@ -151,7 +159,7 @@ public class SingleColorTest {
     @Test(description = "2.12 Проверка разных цветов по выбранным ID - DataProvider из БД Oracle",
             dataProvider = "ColorDataProviderDB",
             dataProviderClass = ColorDataProvider.class,
-            enabled = true)
+            enabled = false)
     /*
     примечание: включать 2 службы:
     - OracleServiceXE

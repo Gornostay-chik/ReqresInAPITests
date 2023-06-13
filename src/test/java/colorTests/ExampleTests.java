@@ -1,11 +1,13 @@
 package colorTests;
 
 import dto.color.ColorDTO;
+import io.qameta.allure.Owner;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.util.List;
 
+@Owner("i.potryasai")
 public class ExampleTests {
     @Test(description = "0.1 Проверка сортировки List с пустыми элементами методом stream().sorted().toList()")
     public void checkListSorting(){

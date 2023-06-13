@@ -12,8 +12,6 @@ import specifications.Specifications;
 import static constants.Constants.UserConstants.API_URL;
 import static constants.Constants.UserConstants.RESPONSE_TIMEOUT;
 import static io.restassured.RestAssured.given;
-import static io.restassured.RestAssured.requestSpecification;
-import static org.hamcrest.CoreMatchers.equalTo;
 
 public class CreateUser {
 

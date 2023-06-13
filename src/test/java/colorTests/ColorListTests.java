@@ -1,13 +1,17 @@
 package colorTests;
 
+import annotations.Project;
 import dto.color.ColorDTO;
 import dto.color.ColorListInfoDTO;
 import dto.color.ColorListInfoDTOIgnore;
+import io.qameta.allure.Owner;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import io.restassured.response.Response;
+import listeners.TestListener;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import java.util.List;
@@ -15,6 +19,9 @@ import java.util.List;
 import static specifications.Specifications.requestSpecification;
 import static io.restassured.RestAssured.given;
 
+@Owner("i.potryasai")
+@Listeners({TestListener.class})
+@Project(name = "Colors")
 public class ColorListTests {
 
     ColorListInfoDTO listInfoExpected;
@@ -57,7 +64,8 @@ public class ColorListTests {
 
     }
 
-    @Test(description = "1.1 Проверка атрибутов страницы: page, per_page, total, total_pages")
+    @Test(testName = "Check List Color Page Attribute",
+            description = "1.1 Проверка атрибутов страницы: page, per_page, total, total_pages")
     @Severity(SeverityLevel.NORMAL)
     public void checkListColorPageAttribute() {
         Assert.assertEquals(listInfoExpected.getPage(), listInfoJSON.getPage(), "\"page\" not equal!");
@@ -66,7 +74,8 @@ public class ColorListTests {
         Assert.assertEquals(listInfoExpected.getTotalPages(), listInfoJSON.getTotalPages());
     }
 
-    @Test(description = "1.1.1 Проверка п.1.1, но с использованием аннотации Jackson @JsonIgnoreProperties(ignoreUnknown = true)")
+    @Test(testName = "Check list lolor attribute ignore",
+            description = "1.1.1 Проверка п.1.1, но с использованием аннотации Jackson @JsonIgnoreProperties(ignoreUnknown = true)")
     public void checkListColorAttributeIgnore(){
         ColorListInfoDTOIgnore colorListIgnoreJSON = given()
                 .spec(requestSpecification())
@@ -78,24 +87,28 @@ public class ColorListTests {
         Assert.assertEquals(colorListIgnoreJSON, listInfoIgnoreExpected);
     }
 
-    @Test(description = "1.2 Проверка, что массив [data] содержит количество элементов {color} = per_page")
+    @Test(testName = "Check array [data] size",
+            description = "1.2 Проверка, что массив [data] содержит количество элементов {color} = per_page")
     public void checkDATASize() {
         Assert.assertEquals(colorListJSON.size(), listInfoJSON.getPerPage());
     }
 
-    @Test(description = "1.3 Проверка, что массив [data] отсортирован")
+    @Test(testName = "Check array [data] sort",
+            description = "1.3 Проверка, что массив [data] отсортирован")
     public void checkDATASort(){
         List<ColorDTO> colorListJSONsorted = colorListJSON.stream().sorted().toList();
         Assert.assertEquals(colorListJSON,colorListJSONsorted);
     }
 
-    @Test(description = "1.4 Проверка минимального элемента массива (Comparable по year)")
+    @Test(testName = "Check the minimum year color",
+            description = "1.4 Проверка минимального элемента массива (Comparable по year)")
     public void checkMinimumColorYear() {
         int minYearJSON = colorListJSON.stream().min((c1, c2) -> c1.compareTo(c2)).get().getYear();
         Assert.assertEquals(minYearJSON, minYearExpected);
     }
 
-    @Test(description = "1.5 Проверка максимального элемента массива (Comparable по year)")
+    @Test(testName = "Check the maximum year color",
+            description = "1.5 Проверка максимального элемента массива (Comparable по year)")
     public void checkMaximumColorYear() {
         int minYearJSON = colorListJSON.stream().max((c1, c2) -> c1.compareTo(c2)).get().getYear();
         Assert.assertEquals(minYearJSON, maxYearExpected);

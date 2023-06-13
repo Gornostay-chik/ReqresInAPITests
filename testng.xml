@@ -3,7 +3,7 @@
 <suite name="All Test Suite">
     <test verbose="2" preserve-order="true" name="C:/JavaExamples/ReqresInAPITests">
         <classes>
-            <class name="colorTests.SingleColorTest">
+            <class name="colorTests.ColorListTests">
             </class>
         </classes>
     </test>
