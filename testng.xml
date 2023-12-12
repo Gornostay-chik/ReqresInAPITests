@@ -3,8 +3,11 @@
 <suite name="All Test Suite">
     <test verbose="2" preserve-order="true" name="C:/JavaExamples/ReqresInAPITests">
         <classes>
-            <class name="colorTests.ColorListTests">
-            </class>
+            <class name="colorTests.ColorListTests"/>
+            <class name="colorTests.ExampleTests"/>
+            <class name="colorTests.SingleColorTest"/>
+            <class name="listeners.TestListener"/>
+            <class name="userTests.CreateUser"/>
         </classes>
     </test>
 </suite>
